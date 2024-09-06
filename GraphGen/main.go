@@ -1,11 +1,10 @@
 package main
 
 import (
-	"fmt"
 	"log"
 	"os"
 
-	parser "github.com/DanielKenichi/Compiladores-T6/Antlr"
+	graphgen "github.com/DanielKenichi/Compiladores-T6/Antlr"
 	"github.com/DanielKenichi/Compiladores-T6/GraphGen/errortokens"
 	"github.com/DanielKenichi/Compiladores-T6/GraphGen/vocabulary"
 	"github.com/antlr4-go/antlr/v4"
@@ -27,7 +26,7 @@ func main() {
 		log.Fatalf("Error opening output file: %v", err)
 	}
 
-	lexer := parser.NewGraphGen(input)
+	lexer := graphgen.NewGraphGenLexer(input)
 
 	//Instanciando vocabulario para retornar nome de display dos tokens
 	vocabulary := vocabulary.New(lexer.LiteralNames, lexer.SymbolicNames)
@@ -49,13 +48,25 @@ func main() {
 			}
 
 			break
-		} else {
-			_, err = output.WriteString(fmt.Sprintf("<'%s',%s>\n", t.GetText(), tokenName))
-		}
+		} //else {
+		// 	_, err = output.WriteString(fmt.Sprintf("<'%s',%s>\n", t.GetText(), tokenName))
+		// }
 
 		if err != nil {
 			log.Fatalf("Failed writing to output file: %v", err)
 		}
 	}
 
+	lexer.Reset()
+
+	tokens := antlr.NewCommonTokenStream(lexer, antlr.TokenDefaultChannel)
+	parser := graphgen.NewGraphGenParser(tokens)
+
+	parser.RemoveErrorListeners()
+	customErrorListener := NewCustomErrorListener(output)
+	parser.AddErrorListener(customErrorListener)
+
+	parser.Program()
+
+	output.WriteString("Fim da compilacao\n")
 }
