@@ -1,7 +1,9 @@
 grammar GraphGen;
 
-/*
- Lexico
+/* 
+---------------
+    Léxico
+--------------- 
 */
 
 COMMENT: '{' ~('\n')*? '}' -> skip;
@@ -34,7 +36,9 @@ ERROR: .;
 
 
 /*
+-----------------
     Sintatico
+-----------------
 */
 
 TYPE: PERSON | GROUP | RELATIONSHIP;
