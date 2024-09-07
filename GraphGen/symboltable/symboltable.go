@@ -6,6 +6,7 @@ const (
 	PERSON Type = iota
 	GROUP
 	RELATIONSHIP
+	INVALIDO
 )
 
 type SymbolTable struct {

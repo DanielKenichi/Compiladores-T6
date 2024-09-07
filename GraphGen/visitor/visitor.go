@@ -45,6 +45,15 @@ func (v *GraphGenVisitor) VisitProgram(ctx parser.IProgramContext) []string {
 func (v *GraphGenVisitor) VisitDeclarations(ctxs []parser.IDeclarationsContext) []string {
 	var declarationsResult = make([]string, 0)
 
+	for _, ctx := range ctxs {
+		if ctx.TYPE() != nil {
+			declarationsResult = append(declarationsResult, fmt.Sprintf("Declarando variáveis do tipo %s", ctx.TYPE().GetText()))
+		}
+
+		result := v.AddVarsToSymbolTable(ctx)
+		declarationsResult = append(declarationsResult, result...)
+	}
+
 	return declarationsResult
 }
 
