@@ -2,7 +2,6 @@ package visitor
 
 import (
 	"fmt"
-	"log"
 
 	parser "github.com/DanielKenichi/Compiladores-T6/Antlr"
 	"github.com/DanielKenichi/Compiladores-T6/GraphGen/relations"
@@ -45,8 +44,6 @@ func (v *GraphGenVisitor) AddVarsToSymbolTable(ctx parser.IDeclarationsContext) 
 func (v *GraphGenVisitor) AddIdentifierToSymbolTable(identifier antlr.TerminalNode, varType symboltable.Type) []string {
 	result := make([]string, 0)
 
-	log.Printf("%v", v.Scopes.CurrentScope())
-	log.Printf("Adding ident %v", identifier.GetText())
 	if v.Scopes.CurrentScope().Exists(identifier.GetText()) {
 		result = append(result,
 			SemanticError(identifier.GetSymbol(), fmt.Sprintf("variable %v already declared", identifier.GetText())),

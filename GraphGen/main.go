@@ -72,8 +72,6 @@ func main() {
 
 	semanticErrors := treeVisitor.VisitProgram(tree)
 
-	log.Print(semanticErrors)
-
 	if len(semanticErrors) > 0 {
 		for _, semanticError := range semanticErrors {
 			output.WriteString(semanticError)
@@ -82,10 +80,6 @@ func main() {
 	}
 
 	// Geração de código
-
-	log.Println("---------------------------")
-	log.Println("GERAÇÃO DE CÓDIGO")
-	log.Println("---------------------------")
 
 	generator := generator.New(treeVisitor)
 

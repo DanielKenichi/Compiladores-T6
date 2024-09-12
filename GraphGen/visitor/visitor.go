@@ -2,7 +2,6 @@ package visitor
 
 import (
 	"fmt"
-	"log"
 
 	parser "github.com/DanielKenichi/Compiladores-T6/Antlr"
 	"github.com/DanielKenichi/Compiladores-T6/GraphGen/relations"
@@ -31,8 +30,6 @@ func (v *GraphGenVisitor) VisitProgram(ctx parser.IProgramContext) []string {
 	var programResult = make([]string, 0)
 	v.Scopes.NewScope()
 
-	log.Print("In the program")
-
 	result := v.VisitDeclarations(ctx.AllDeclarations())
 	programResult = append(programResult, result...)
 
@@ -53,8 +50,6 @@ func (v *GraphGenVisitor) VisitDeclarations(ctxs []parser.IDeclarationsContext) 
 
 	for _, ctx := range ctxs {
 
-		log.Print("Checking declarations")
-
 		result := v.AddVarsToSymbolTable(ctx)
 
 		declarationsResult = append(declarationsResult, result...)
@@ -67,8 +62,6 @@ func (v *GraphGenVisitor) VisitSubgroupsDefinitions(ctxs []parser.ISubgroups_def
 	var subgroupDefinitionsResult = make([]string, 0)
 
 	for _, ctx := range ctxs {
-		log.Print("Checking subgroup definitions")
-
 		result := v.CheckSubGroupDefinitions(ctx)
 
 		subgroupDefinitionsResult = append(subgroupDefinitionsResult, result...)
@@ -79,8 +72,6 @@ func (v *GraphGenVisitor) VisitSubgroupsDefinitions(ctxs []parser.ISubgroups_def
 
 func (v *GraphGenVisitor) VisitRelationshipDefinitions(ctxs []parser.IRelationship_definitionsContext) []string {
 	var relationshipDefinitionsResult = make([]string, 0)
-
-	log.Printf("Checking relationship definitions")
 
 	for _, ctx := range ctxs {
 		result := v.CheckRelationShipsDefinitions(ctx)
