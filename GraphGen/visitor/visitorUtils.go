@@ -40,12 +40,47 @@ func (v *GraphGenVisitor) AddIdentifierToSymbolTable(identifier antlr.TerminalNo
 	log.Printf("Adding ident %v", identifier.GetText())
 	if v.Scopes.CurrentScope().Exists(identifier.GetText()) {
 		result = append(result,
-			SemanticError(identifier.GetSymbol(), fmt.Sprintf("var %v already declared", identifier.GetText())),
+			SemanticError(identifier.GetSymbol(), fmt.Sprintf("variable %v already declared", identifier.GetText())),
 		)
 		return result
 	}
 
 	v.Scopes.CurrentScope().AddSymbol(identifier.GetText(), varType)
+
+	return result
+}
+
+func (v *GraphGenVisitor) CheckSubGroupDefinitions(ctx parser.ISubgroups_definitionsContext) []string {
+	result := make([]string, 0)
+
+	for _, ident := range ctx.AllIDENT() {
+
+		varDeclarationResult := v.CheckVarDeclaration(ident)
+
+		if len(varDeclarationResult) > 0 {
+			return varDeclarationResult
+		}
+
+		identType := v.Scopes.CurrentScope().GetType(ident.GetText())
+
+		if identType != symboltable.GROUP {
+			result = append(result,
+				SemanticError(ident.GetSymbol(), fmt.Sprintf("variable %v is not a group", ident.GetText())))
+			return result
+		}
+	}
+
+	return result
+}
+
+func (v *GraphGenVisitor) CheckVarDeclaration(ident antlr.TerminalNode) []string {
+	result := make([]string, 0)
+
+	if !v.Scopes.CurrentScope().Exists(ident.GetText()) {
+		result = append(result,
+			SemanticError(ident.GetSymbol(), fmt.Sprintf("variable %v not declared", ident.GetText())))
+		return result
+	}
 
 	return result
 }

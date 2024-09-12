@@ -63,6 +63,14 @@ func (v *GraphGenVisitor) VisitDeclarations(ctxs []parser.IDeclarationsContext) 
 func (v *GraphGenVisitor) VisitSubgroupsDefinitions(ctxs []parser.ISubgroups_definitionsContext) []string {
 	var subgroupDefinitionsResult = make([]string, 0)
 
+	for _, ctx := range ctxs {
+		log.Print("Checking subgroup definitions")
+
+		result := v.CheckSubGroupDefinitions(ctx)
+
+		subgroupDefinitionsResult = append(subgroupDefinitionsResult, result...)
+	}
+
 	return subgroupDefinitionsResult
 }
 
