@@ -39,12 +39,6 @@ func (s *BaseGraphGenListener) EnterVar_type(ctx *Var_typeContext) {}
 // ExitVar_type is called when production var_type is exited.
 func (s *BaseGraphGenListener) ExitVar_type(ctx *Var_typeContext) {}
 
-// EnterSubgroups_definitions is called when production subgroups_definitions is entered.
-func (s *BaseGraphGenListener) EnterSubgroups_definitions(ctx *Subgroups_definitionsContext) {}
-
-// ExitSubgroups_definitions is called when production subgroups_definitions is exited.
-func (s *BaseGraphGenListener) ExitSubgroups_definitions(ctx *Subgroups_definitionsContext) {}
-
 // EnterRelationship_definitions is called when production relationship_definitions is entered.
 func (s *BaseGraphGenListener) EnterRelationship_definitions(ctx *Relationship_definitionsContext) {}
 

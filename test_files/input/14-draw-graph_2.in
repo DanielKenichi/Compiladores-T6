@@ -1,0 +1,21 @@
+person rodrigo, kenichi, dini
+
+person bruno, pedro, camila
+
+person marcela, lucas
+
+group bcc_2020, bcc_2021, enc
+
+relationship friends_with, studies_with
+
+kenichi, dini, pedro studies_with bcc_2020
+
+rodrigo friends_with bcc_2020
+
+rodrigo, bruno, camila studies_with bcc_2021
+
+marcela, lucas studies_with enc
+
+draw kenichi
+draw rodrigo
+draw lucas

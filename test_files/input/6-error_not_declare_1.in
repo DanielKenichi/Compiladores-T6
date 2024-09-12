@@ -1,9 +1,0 @@
-{ Input to Check wheter not declared variable used in subgroup definition is detected or not }
-
-person rodrigo, kenichi, dini
-
-group dc, bcc_2020, bcc_2021
-
-relationship friends_with, part_of
-
-bcc_2021, batata subgroup of bcc_2020

@@ -6,12 +6,10 @@ group dc, bcc_2020, bcc_2021
 
 relationship friends_with, part_of
 
-bcc_2021, bcc_2020 subgroup of dc
-
 kenichi, dini part_of bcc_2020
 
 rodrigo friends_with bcc_2020
 
 rodrigo part_of bcc_2021
 
-draw kenichi filter by rodrigo
+draw friends_with 

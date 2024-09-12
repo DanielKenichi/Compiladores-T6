@@ -56,29 +56,6 @@ func (v *GraphGenVisitor) AddIdentifierToSymbolTable(identifier antlr.TerminalNo
 	return result
 }
 
-func (v *GraphGenVisitor) CheckSubGroupDefinitions(ctx parser.ISubgroups_definitionsContext) []string {
-	result := make([]string, 0)
-
-	for _, ident := range ctx.AllIDENT() {
-
-		varDeclarationResult := v.CheckVarDeclaration(ident)
-
-		if len(varDeclarationResult) > 0 {
-			return varDeclarationResult
-		}
-
-		identType := v.Scopes.CurrentScope().GetType(ident.GetText())
-
-		if identType != symboltable.GROUP {
-			result = append(result,
-				SemanticError(ident.GetSymbol(), fmt.Sprintf("variable %v is not a group", ident.GetText())))
-			return result
-		}
-	}
-
-	return result
-}
-
 func (v *GraphGenVisitor) CheckRelationShipsDefinitions(relantionship parser.IRelationship_definitionsContext) []string {
 	result := make([]string, 0)
 

@@ -6,6 +6,4 @@ group dc, bcc_2020, bcc_2021
 
 relationship friends_with, part_of
 
-bcc_2021, bcc_2020 subgroup of dc
-
-kenichi, kenichi part_of bcc_2020
+kenichi, dini part_of dini

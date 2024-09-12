@@ -33,9 +33,6 @@ func (v *GraphGenVisitor) VisitProgram(ctx parser.IProgramContext) []string {
 	result := v.VisitDeclarations(ctx.AllDeclarations())
 	programResult = append(programResult, result...)
 
-	result = v.VisitSubgroupsDefinitions(ctx.AllSubgroups_definitions())
-	programResult = append(programResult, result...)
-
 	result = v.VisitRelationshipDefinitions(ctx.AllRelationship_definitions())
 	programResult = append(programResult, result...)
 
@@ -56,18 +53,6 @@ func (v *GraphGenVisitor) VisitDeclarations(ctxs []parser.IDeclarationsContext) 
 	}
 
 	return declarationsResult
-}
-
-func (v *GraphGenVisitor) VisitSubgroupsDefinitions(ctxs []parser.ISubgroups_definitionsContext) []string {
-	var subgroupDefinitionsResult = make([]string, 0)
-
-	for _, ctx := range ctxs {
-		result := v.CheckSubGroupDefinitions(ctx)
-
-		subgroupDefinitionsResult = append(subgroupDefinitionsResult, result...)
-	}
-
-	return subgroupDefinitionsResult
 }
 
 func (v *GraphGenVisitor) VisitRelationshipDefinitions(ctxs []parser.IRelationship_definitionsContext) []string {

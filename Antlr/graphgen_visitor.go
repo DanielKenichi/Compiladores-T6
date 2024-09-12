@@ -17,9 +17,6 @@ type GraphGenVisitor interface {
 	// Visit a parse tree produced by GraphGenParser#var_type.
 	VisitVar_type(ctx *Var_typeContext) interface{}
 
-	// Visit a parse tree produced by GraphGenParser#subgroups_definitions.
-	VisitSubgroups_definitions(ctx *Subgroups_definitionsContext) interface{}
-
 	// Visit a parse tree produced by GraphGenParser#relationship_definitions.
 	VisitRelationship_definitions(ctx *Relationship_definitionsContext) interface{}
 

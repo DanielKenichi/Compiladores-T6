@@ -13,9 +13,6 @@ PERSON: 'person';
 GROUP: 'group';
 RELATIONSHIP: 'relationship';
 
-//subgroup definition
-SUBGROUP_OF: 'subgroup of';
-
 //filter of a person's relationships
 FILTER_BY: 'filter by';
 
@@ -43,15 +40,12 @@ ERROR: .;
 */
 
 program
-    : (declarations)* (subgroups_definitions)* (relationship_definitions)* (draw_command)*;
+    : (declarations)* (relationship_definitions)* (draw_command)*;
 
 declarations
     : var_type IDENT (VIRGULA IDENT)*;
 
 var_type: PERSON | GROUP | RELATIONSHIP;
-
-subgroups_definitions
-    : IDENT (VIRGULA IDENT)* SUBGROUP_OF IDENT;
 
 relationship_definitions
     : IDENT (VIRGULA IDENT)* relation=IDENT related=IDENT;

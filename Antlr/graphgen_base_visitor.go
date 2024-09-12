@@ -20,10 +20,6 @@ func (v *BaseGraphGenVisitor) VisitVar_type(ctx *Var_typeContext) interface{} {
 	return v.VisitChildren(ctx)
 }
 
-func (v *BaseGraphGenVisitor) VisitSubgroups_definitions(ctx *Subgroups_definitionsContext) interface{} {
-	return v.VisitChildren(ctx)
-}
-
 func (v *BaseGraphGenVisitor) VisitRelationship_definitions(ctx *Relationship_definitionsContext) interface{} {
 	return v.VisitChildren(ctx)
 }
