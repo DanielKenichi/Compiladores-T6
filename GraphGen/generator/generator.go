@@ -1,8 +1,6 @@
 package generator
 
 import (
-	"log"
-
 	parser "github.com/DanielKenichi/Compiladores-T6/Antlr"
 	"github.com/DanielKenichi/Compiladores-T6/GraphGen/symboltable"
 	"github.com/DanielKenichi/Compiladores-T6/GraphGen/visitor"
@@ -22,8 +20,6 @@ func New(visitor *visitor.GraphGenVisitor) *GraphGenGenerator {
 func (g *GraphGenGenerator) VisitProgram(ctx parser.IProgramContext) []string {
 	var programResult = make([]string, 0)
 
-	log.Print("Generating code...")
-
 	programResult = append(programResult, "import networkx as nx\n")
 	programResult = append(programResult, "import matplotlib.pyplot as plt\n")
 
@@ -38,11 +34,7 @@ func (g *GraphGenGenerator) VisitProgram(ctx parser.IProgramContext) []string {
 func (g *GraphGenGenerator) VisitDrawCommands(ctxs []parser.IDraw_commandContext) []string {
 	var drawCommandResult = make([]string, 0)
 
-	log.Print("Visiting draw commands...")
-
 	for _, ctx := range ctxs {
-		// log.Print("command: ", ctx.GetText())
-
 		drawCommandResult = append(drawCommandResult, "G = nx.Graph()\n")
 
 		varType := g.Visitor.Scopes.CurrentScope().GetType(ctx.IDENT(0).GetText())
@@ -62,17 +54,21 @@ func (g *GraphGenGenerator) VisitDrawCommands(ctxs []parser.IDraw_commandContext
 		}
 
 		if varType == symboltable.PERSON {
+			person := g.Visitor.Relations.Persons[ctx.IDENT(0).GetText()]
+
+			drawCommandResult = append(drawCommandResult, "edge_labels={}\n")
+
+			// TODO: add different color to person (root)
+
 			// has filter
 			if ctx.FILTER_BY() != nil {
+				filter := ctx.GetFilter().GetText()
+				for _, relatedPerson := range person.Relationships[filter] {
+					drawCommandResult = append(drawCommandResult, "G.add_edge(\""+person.Name+"\", \""+relatedPerson.Name+"\")\n")
+					drawCommandResult = append(drawCommandResult, "edge_labels[(\""+person.Name+"\", \""+relatedPerson.Name+"\")] = \""+filter+"\"\n")
+				}
 			} else {
 				// no filter
-				person := g.Visitor.Relations.Persons[ctx.IDENT(0).GetText()]
-
-				drawCommandResult = append(drawCommandResult, "edge_labels={}\n")
-
-				// TODO: add color to person
-				log.Printf("Pessoa: %v", person)
-
 				for key, value := range person.Relationships {
 					for _, relatedPerson := range value {
 						drawCommandResult = append(drawCommandResult, "G.add_edge(\""+person.Name+"\", \""+relatedPerson.Name+"\")\n")
