@@ -1,0 +1,17 @@
+{ Input to Check wheter not declared variable used in draw command is detected or not }
+
+person rodrigo, kenichi, dini
+
+group dc, bcc_2020, bcc_2021
+
+relationship friends_with, part_of
+
+bcc_2021, bcc_2020 subgroup of dc
+
+kenichi, dini part_of bcc_2020
+
+rodrigo friends_with bcc_2020
+
+rodrigo part_of bcc_2021
+
+draw bcc_2020

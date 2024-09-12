@@ -375,6 +375,16 @@ func (s *ProgramContext) ExitRule(listener antlr.ParseTreeListener) {
 	}
 }
 
+func (s *ProgramContext) Accept(visitor antlr.ParseTreeVisitor) interface{} {
+	switch t := visitor.(type) {
+	case GraphGenVisitor:
+		return t.VisitProgram(s)
+
+	default:
+		return t.VisitChildren(s)
+	}
+}
+
 func (p *GraphGenParser) Program() (localctx IProgramContext) {
 	localctx = NewProgramContext(p, p.GetParserRuleContext(), p.GetState())
 	p.EnterRule(localctx, 0, GraphGenParserRULE_program)
@@ -586,6 +596,16 @@ func (s *DeclarationsContext) ExitRule(listener antlr.ParseTreeListener) {
 	}
 }
 
+func (s *DeclarationsContext) Accept(visitor antlr.ParseTreeVisitor) interface{} {
+	switch t := visitor.(type) {
+	case GraphGenVisitor:
+		return t.VisitDeclarations(s)
+
+	default:
+		return t.VisitChildren(s)
+	}
+}
+
 func (p *GraphGenParser) Declarations() (localctx IDeclarationsContext) {
 	localctx = NewDeclarationsContext(p, p.GetParserRuleContext(), p.GetState())
 	p.EnterRule(localctx, 2, GraphGenParserRULE_declarations)
@@ -730,6 +750,16 @@ func (s *Var_typeContext) ExitRule(listener antlr.ParseTreeListener) {
 	}
 }
 
+func (s *Var_typeContext) Accept(visitor antlr.ParseTreeVisitor) interface{} {
+	switch t := visitor.(type) {
+	case GraphGenVisitor:
+		return t.VisitVar_type(s)
+
+	default:
+		return t.VisitChildren(s)
+	}
+}
+
 func (p *GraphGenParser) Var_type() (localctx IVar_typeContext) {
 	localctx = NewVar_typeContext(p, p.GetParserRuleContext(), p.GetState())
 	p.EnterRule(localctx, 4, GraphGenParserRULE_var_type)
@@ -848,6 +878,16 @@ func (s *Subgroups_definitionsContext) EnterRule(listener antlr.ParseTreeListene
 func (s *Subgroups_definitionsContext) ExitRule(listener antlr.ParseTreeListener) {
 	if listenerT, ok := listener.(GraphGenListener); ok {
 		listenerT.ExitSubgroups_definitions(s)
+	}
+}
+
+func (s *Subgroups_definitionsContext) Accept(visitor antlr.ParseTreeVisitor) interface{} {
+	switch t := visitor.(type) {
+	case GraphGenVisitor:
+		return t.VisitSubgroups_definitions(s)
+
+	default:
+		return t.VisitChildren(s)
 	}
 }
 
@@ -1034,6 +1074,16 @@ func (s *Relationship_definitionsContext) ExitRule(listener antlr.ParseTreeListe
 	}
 }
 
+func (s *Relationship_definitionsContext) Accept(visitor antlr.ParseTreeVisitor) interface{} {
+	switch t := visitor.(type) {
+	case GraphGenVisitor:
+		return t.VisitRelationship_definitions(s)
+
+	default:
+		return t.VisitChildren(s)
+	}
+}
+
 func (p *GraphGenParser) Relationship_definitions() (localctx IRelationship_definitionsContext) {
 	localctx = NewRelationship_definitionsContext(p, p.GetParserRuleContext(), p.GetState())
 	p.EnterRule(localctx, 8, GraphGenParserRULE_relationship_definitions)
@@ -1209,6 +1259,16 @@ func (s *Draw_commandContext) EnterRule(listener antlr.ParseTreeListener) {
 func (s *Draw_commandContext) ExitRule(listener antlr.ParseTreeListener) {
 	if listenerT, ok := listener.(GraphGenListener); ok {
 		listenerT.ExitDraw_command(s)
+	}
+}
+
+func (s *Draw_commandContext) Accept(visitor antlr.ParseTreeVisitor) interface{} {
+	switch t := visitor.(type) {
+	case GraphGenVisitor:
+		return t.VisitDraw_command(s)
+
+	default:
+		return t.VisitChildren(s)
 	}
 }
 

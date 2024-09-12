@@ -6,6 +6,7 @@ import (
 
 	graphgen "github.com/DanielKenichi/Compiladores-T6/Antlr"
 	"github.com/DanielKenichi/Compiladores-T6/GraphGen/errortokens"
+	"github.com/DanielKenichi/Compiladores-T6/GraphGen/generator"
 	"github.com/DanielKenichi/Compiladores-T6/GraphGen/visitor"
 	"github.com/DanielKenichi/Compiladores-T6/GraphGen/vocabulary"
 	"github.com/antlr4-go/antlr/v4"
@@ -78,5 +79,19 @@ func main() {
 			output.WriteString(semanticError)
 		}
 		return
+	}
+
+	// Geração de código
+
+	log.Println("---------------------------")
+	log.Println("GERAÇÃO DE CÓDIGO")
+	log.Println("---------------------------")
+
+	generator := generator.New(treeVisitor)
+
+	programOutput := generator.VisitProgram(tree)
+
+	for _, line := range programOutput {
+		output.WriteString(line)
 	}
 }
