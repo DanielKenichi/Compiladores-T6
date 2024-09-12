@@ -57,9 +57,35 @@ func (g *GraphGenGenerator) VisitDrawCommands(ctxs []parser.IDraw_commandContext
 					}
 				}
 			}
+
+			drawCommandResult = append(drawCommandResult, "nx.draw(G, with_labels=True, font_weight='bold')\n")
 		}
 
-		drawCommandResult = append(drawCommandResult, "nx.draw(G, with_labels=True, font_weight='bold')\n")
+		if varType == symboltable.PERSON {
+			// has filter
+			if ctx.FILTER_BY() != nil {
+			} else {
+				// no filter
+				person := g.Visitor.Relations.Persons[ctx.IDENT(0).GetText()]
+
+				drawCommandResult = append(drawCommandResult, "edge_labels={}\n")
+
+				// TODO: add color to person
+				log.Printf("Pessoa: %v", person)
+
+				for key, value := range person.Relationships {
+					for _, relatedPerson := range value {
+						drawCommandResult = append(drawCommandResult, "G.add_edge(\""+person.Name+"\", \""+relatedPerson.Name+"\")\n")
+						drawCommandResult = append(drawCommandResult, "edge_labels[(\""+person.Name+"\", \""+relatedPerson.Name+"\")] = \""+key+"\"\n")
+					}
+				}
+			}
+
+			drawCommandResult = append(drawCommandResult, "pos = nx.spring_layout(G)\n")
+			drawCommandResult = append(drawCommandResult, "nx.draw(G, pos, node_color='pink', alpha=0.9, node_size=500, labels={node: node for node in G.nodes()})\n")
+			drawCommandResult = append(drawCommandResult, "nx.draw_networkx_edge_labels(G, pos, edge_labels=edge_labels, font_color='red')\n")
+		}
+
 		drawCommandResult = append(drawCommandResult, "plt.show()\n")
 
 	}
