@@ -367,6 +367,7 @@ public class GraphGenParser extends Parser {
 	@SuppressWarnings("CheckReturnValue")
 	public static class Relationship_definitionsContext extends ParserRuleContext {
 		public Token relation;
+		public Token related;
 		public List<TerminalNode> IDENT() { return getTokens(GraphGenParser.IDENT); }
 		public TerminalNode IDENT(int i) {
 			return getToken(GraphGenParser.IDENT, i);
@@ -409,7 +410,7 @@ public class GraphGenParser extends Parser {
 			setState(66);
 			((Relationship_definitionsContext)_localctx).relation = match(IDENT);
 			setState(67);
-			match(IDENT);
+			((Relationship_definitionsContext)_localctx).related = match(IDENT);
 			}
 		}
 		catch (RecognitionException re) {

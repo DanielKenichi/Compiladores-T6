@@ -5,6 +5,7 @@ import (
 	"log"
 
 	parser "github.com/DanielKenichi/Compiladores-T6/Antlr"
+	"github.com/DanielKenichi/Compiladores-T6/GraphGen/relations"
 	"github.com/DanielKenichi/Compiladores-T6/GraphGen/symboltable"
 	"github.com/antlr4-go/antlr/v4"
 )
@@ -27,7 +28,15 @@ func (v *GraphGenVisitor) AddVarsToSymbolTable(ctx parser.IDeclarationsContext) 
 	for _, varName := range ctx.AllIDENT() {
 		result := v.AddIdentifierToSymbolTable(varName, varType)
 
-		declarationsResult = append(declarationsResult, result...)
+		if len(result) > 0 {
+			return result
+		}
+
+		if varType == symboltable.GROUP {
+			v.Relations.AddNewGroup(varName.GetText())
+		} else if varType == symboltable.PERSON {
+			v.Relations.AddNewPerson(varName.GetText())
+		}
 	}
 
 	return declarationsResult
@@ -71,6 +80,92 @@ func (v *GraphGenVisitor) CheckSubGroupDefinitions(ctx parser.ISubgroups_definit
 	}
 
 	return result
+}
+
+func (v *GraphGenVisitor) CheckRelationShipsDefinitions(relantionship parser.IRelationship_definitionsContext) []string {
+	result := make([]string, 0)
+
+	alreadyDeclaredInRelationship := map[string]bool{}
+
+	relation := relantionship.GetRelation()
+
+	for _, ident := range relantionship.AllIDENT() {
+		varDeclarationResult := v.CheckVarDeclaration(ident)
+
+		if len(varDeclarationResult) > 0 {
+			return varDeclarationResult
+		}
+
+		_, ok := alreadyDeclaredInRelationship[ident.GetText()]
+
+		if ok {
+			result = append(result,
+				SemanticError(ident.GetSymbol(), fmt.Sprintf("variable %v is declared more than once in the relationship", ident.GetText())))
+
+			return result
+		}
+
+		alreadyDeclaredInRelationship[ident.GetText()] = true
+
+		if ident.GetText() == relation.GetText() {
+			continue
+		}
+
+		varType := v.Scopes.CurrentScope().GetType(ident.GetText())
+
+		if varType == symboltable.RELATIONSHIP {
+			result = append(result,
+				SemanticError(ident.GetSymbol(), fmt.Sprintf("variable %v must be a group or a person", ident.GetText())))
+
+			return result
+		}
+	}
+
+	return result
+}
+
+func (v *GraphGenVisitor) BuildRelations(relantionship parser.IRelationship_definitionsContext) {
+	related := relantionship.GetRelated()
+	relation := relantionship.GetRelation()
+
+	for _, ident := range relantionship.AllIDENT() {
+		if ident.GetText() == related.GetText() || ident.GetText() == relation.GetText() {
+			continue
+		}
+		persons := make([]*relations.Person, 0)
+		relatedPersons := make([]*relations.Person, 0)
+
+		relatedType := v.Scopes.CurrentScope().GetType(related.GetText())
+		varType := v.Scopes.CurrentScope().GetType(ident.GetText())
+
+		if relatedType == symboltable.GROUP {
+			relatedPersons = v.Relations.GetGroupMembers(ident.GetText())
+		} else {
+			relatedPerson := v.Relations.GetPerson(ident.GetText())
+
+			relatedPersons = append(relatedPersons, relatedPerson)
+		}
+
+		if varType == symboltable.GROUP {
+			persons = v.Relations.GetGroupMembers(ident.GetText())
+		} else {
+			person := v.Relations.GetPerson(ident.GetText())
+
+			persons = append(persons, person)
+		}
+
+		for _, person := range persons {
+			for _, relatedPerson := range relatedPersons {
+				person.AddPersonToRelationship(relatedPerson, relation.GetText())
+				relatedPerson.AddPersonToRelationship(person, relation.GetText())
+			}
+
+			if relatedType == symboltable.GROUP {
+				v.Relations.AddPersonToGroup(person, related.GetText())
+			}
+		}
+
+	}
 }
 
 func (v *GraphGenVisitor) CheckVarDeclaration(ident antlr.TerminalNode) []string {

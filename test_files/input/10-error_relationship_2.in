@@ -1,0 +1,11 @@
+{Input to check wheter variable used multiple times in relationship definition is detected or not}
+
+person rodrigo, kenichi, dini
+
+group dc, bcc_2020, bcc_2021
+
+relationship friends_with, part_of
+
+bcc_2021, bcc_2020 subgroup of dc
+
+kenichi, dini part_of dini

@@ -53,7 +53,7 @@ subgroups_definitions
     : IDENT (VIRGULA IDENT)* SUBGROUP_OF IDENT;
 
 relationship_definitions
-    : IDENT (VIRGULA IDENT)* relation=IDENT IDENT;
+    : IDENT (VIRGULA IDENT)* relation=IDENT related=IDENT;
 
 draw_command
     : DRAW OPENPAR IDENT (VIRGULA relation=IDENT)* CLOSEPAR;

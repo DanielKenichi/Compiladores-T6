@@ -1,3 +1,5 @@
+{ Input to Check wheter not declared variable used in subgroup definition is detected or not }
+
 person rodrigo, kenichi, dini
 
 group dc, bcc_2020, bcc_2021

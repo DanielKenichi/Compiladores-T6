@@ -5,18 +5,21 @@ import (
 	"log"
 
 	parser "github.com/DanielKenichi/Compiladores-T6/Antlr"
+	"github.com/DanielKenichi/Compiladores-T6/GraphGen/relations"
 	"github.com/DanielKenichi/Compiladores-T6/GraphGen/scope"
 	"github.com/antlr4-go/antlr/v4"
 )
 
 type GraphGenVisitor struct {
 	parser.BaseGraphGenVisitor
-	Scopes *scope.Scope
+	Scopes    *scope.Scope
+	Relations *relations.Relations
 }
 
 func New() *GraphGenVisitor {
 	return &GraphGenVisitor{
-		Scopes: scope.New(),
+		Scopes:    scope.New(),
+		Relations: relations.NewRelations(),
 	}
 }
 
@@ -76,6 +79,20 @@ func (v *GraphGenVisitor) VisitSubgroupsDefinitions(ctxs []parser.ISubgroups_def
 
 func (v *GraphGenVisitor) VisitRelationshipDefinitions(ctxs []parser.IRelationship_definitionsContext) []string {
 	var relationshipDefinitionsResult = make([]string, 0)
+
+	log.Printf("Checking relationship definitions")
+
+	for _, ctx := range ctxs {
+		result := v.CheckRelationShipsDefinitions(ctx)
+
+		if len(result) > 0 {
+			return result
+		}
+
+		v.BuildRelations(ctx)
+
+		relationshipDefinitionsResult = append(relationshipDefinitionsResult, result...)
+	}
 
 	return relationshipDefinitionsResult
 }

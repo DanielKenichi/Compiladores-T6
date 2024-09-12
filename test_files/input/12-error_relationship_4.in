@@ -1,0 +1,11 @@
+{Input to check wheter variable that is not the relationship is of wrong type}
+
+person rodrigo, kenichi, dini
+
+group dc, bcc_2020, bcc_2021
+
+relationship friends_with, part_of
+
+bcc_2021, bcc_2020 subgroup of dc
+
+kenichi, friends_with part_of dini

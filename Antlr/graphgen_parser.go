@@ -942,8 +942,14 @@ type IRelationship_definitionsContext interface {
 	// GetRelation returns the relation token.
 	GetRelation() antlr.Token
 
+	// GetRelated returns the related token.
+	GetRelated() antlr.Token
+
 	// SetRelation sets the relation token.
 	SetRelation(antlr.Token)
+
+	// SetRelated sets the related token.
+	SetRelated(antlr.Token)
 
 	// Getter signatures
 	AllIDENT() []antlr.TerminalNode
@@ -959,6 +965,7 @@ type Relationship_definitionsContext struct {
 	antlr.BaseParserRuleContext
 	parser   antlr.Parser
 	relation antlr.Token
+	related  antlr.Token
 }
 
 func NewEmptyRelationship_definitionsContext() *Relationship_definitionsContext {
@@ -990,7 +997,11 @@ func (s *Relationship_definitionsContext) GetParser() antlr.Parser { return s.pa
 
 func (s *Relationship_definitionsContext) GetRelation() antlr.Token { return s.relation }
 
+func (s *Relationship_definitionsContext) GetRelated() antlr.Token { return s.related }
+
 func (s *Relationship_definitionsContext) SetRelation(v antlr.Token) { s.relation = v }
+
+func (s *Relationship_definitionsContext) SetRelated(v antlr.Token) { s.related = v }
 
 func (s *Relationship_definitionsContext) AllIDENT() []antlr.TerminalNode {
 	return s.GetTokens(GraphGenParserIDENT)
@@ -1087,7 +1098,10 @@ func (p *GraphGenParser) Relationship_definitions() (localctx IRelationship_defi
 	}
 	{
 		p.SetState(67)
-		p.Match(GraphGenParserIDENT)
+
+		var _m = p.Match(GraphGenParserIDENT)
+
+		localctx.(*Relationship_definitionsContext).related = _m
 		if p.HasError() {
 			// Recognition error - abort rule
 			goto errorExit
