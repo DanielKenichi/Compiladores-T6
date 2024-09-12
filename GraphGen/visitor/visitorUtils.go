@@ -168,6 +168,48 @@ func (v *GraphGenVisitor) BuildRelations(relantionship parser.IRelationship_defi
 	}
 }
 
+func (v *GraphGenVisitor) CheckDrawCommandsCall(drawCommand parser.IDraw_commandContext) []string {
+	result := make([]string, 0)
+
+	originNode := drawCommand.IDENT(0)
+
+	varDeclarationResult := v.CheckVarDeclaration(originNode)
+
+	if len(varDeclarationResult) > 0 {
+		return varDeclarationResult
+	}
+
+	originNodeType := v.Scopes.CurrentScope().GetType(originNode.GetText())
+
+	if originNodeType == symboltable.RELATIONSHIP {
+		result = append(result,
+			SemanticError(originNode.GetSymbol(), fmt.Sprintf("relationship %v is not a node to draw", originNode.GetText())))
+
+		return result
+	}
+
+	if originNodeType == symboltable.GROUP && drawCommand.FILTER_BY() != nil {
+		result = append(result,
+			SemanticError(originNode.GetSymbol(), "only persons relationships can be filtered"))
+
+		return result
+	}
+
+	if originNodeType == symboltable.PERSON && drawCommand.FILTER_BY() != nil {
+		filter := drawCommand.IDENT(1)
+
+		filterType := v.Scopes.CurrentScope().GetType(filter.GetText())
+
+		if filterType != symboltable.RELATIONSHIP {
+			result = append(result,
+				SemanticError(filter.GetSymbol(), fmt.Sprintf("variable %v must be a filter", filter.GetText())))
+			return result
+		}
+	}
+
+	return result
+}
+
 func (v *GraphGenVisitor) CheckVarDeclaration(ident antlr.TerminalNode) []string {
 	result := make([]string, 0)
 

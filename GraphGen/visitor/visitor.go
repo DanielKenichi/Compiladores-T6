@@ -100,5 +100,11 @@ func (v *GraphGenVisitor) VisitRelationshipDefinitions(ctxs []parser.IRelationsh
 func (v *GraphGenVisitor) VisitDrawCommands(ctxs []parser.IDraw_commandContext) []string {
 	var drawCommandResult = make([]string, 0)
 
+	for _, ctx := range ctxs {
+		result := v.CheckDrawCommandsCall(ctx)
+
+		drawCommandResult = append(drawCommandResult, result...)
+	}
+
 	return drawCommandResult
 }

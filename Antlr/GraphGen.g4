@@ -16,11 +16,12 @@ RELATIONSHIP: 'relationship';
 //subgroup definition
 SUBGROUP_OF: 'subgroup of';
 
+//filter of a person's relationships
+FILTER_BY: 'filter by';
+
 //key word to build a graph
 DRAW: 'draw';
 
-OPENPAR: '(';
-CLOSEPAR: ')';
 VIRGULA: ',';
 
 //identificadores
@@ -56,4 +57,4 @@ relationship_definitions
     : IDENT (VIRGULA IDENT)* relation=IDENT related=IDENT;
 
 draw_command
-    : DRAW OPENPAR IDENT (VIRGULA relation=IDENT)* CLOSEPAR;
+    : DRAW IDENT (FILTER_BY filter=IDENT)?;
