@@ -139,7 +139,7 @@ func (v *GraphGenVisitor) BuildRelations(relantionship parser.IRelationship_defi
 		varType := v.Scopes.CurrentScope().GetType(ident.GetText())
 
 		if relatedType == symboltable.GROUP {
-			relatedPersons = v.Relations.GetGroupMembers(ident.GetText())
+			relatedPersons = v.Relations.GetGroupMembers(related.GetText())
 		} else {
 			relatedPerson := v.Relations.GetPerson(ident.GetText())
 
