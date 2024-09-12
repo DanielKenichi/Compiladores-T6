@@ -58,8 +58,6 @@ func (g *GraphGenGenerator) VisitDrawCommands(ctxs []parser.IDraw_commandContext
 
 			drawCommandResult = append(drawCommandResult, "edge_labels={}\n")
 
-			// TODO: add different color to person (root)
-
 			// has filter
 			if ctx.FILTER_BY() != nil {
 				filter := ctx.GetFilter().GetText()
@@ -80,6 +78,7 @@ func (g *GraphGenGenerator) VisitDrawCommands(ctxs []parser.IDraw_commandContext
 			drawCommandResult = append(drawCommandResult, "pos = nx.spring_layout(G)\n")
 			drawCommandResult = append(drawCommandResult, "nx.draw(G, pos, node_color='pink', alpha=0.9, node_size=500, labels={node: node for node in G.nodes()})\n")
 			drawCommandResult = append(drawCommandResult, "nx.draw_networkx_edge_labels(G, pos, edge_labels=edge_labels, font_color='red')\n")
+			drawCommandResult = append(drawCommandResult, "nx.draw_networkx_nodes(G, pos, nodelist=['"+person.Name+"'], node_color='blue', alpha=0.3, node_size=500)\n")
 		}
 
 		drawCommandResult = append(drawCommandResult, "plt.show()\n")
