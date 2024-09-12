@@ -39,7 +39,7 @@ func (l *customErrorListener) SyntaxError(recognizer antlr.Recognizer, offending
 		}
 
 		// Impressão do erro
-		l.output.WriteString("Linha " + strconv.Itoa(line) + ": erro sintatico proximo a " + tokenText + "\n")
+		l.output.WriteString("Line " + strconv.Itoa(line) + ": syntax error next to " + tokenText + "\n")
 		l.syntax_err = true
 	}
 }

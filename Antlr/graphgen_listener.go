@@ -14,6 +14,9 @@ type GraphGenListener interface {
 	// EnterDeclarations is called when entering the declarations production.
 	EnterDeclarations(c *DeclarationsContext)
 
+	// EnterVar_type is called when entering the var_type production.
+	EnterVar_type(c *Var_typeContext)
+
 	// EnterSubgroups_definitions is called when entering the subgroups_definitions production.
 	EnterSubgroups_definitions(c *Subgroups_definitionsContext)
 
@@ -28,6 +31,9 @@ type GraphGenListener interface {
 
 	// ExitDeclarations is called when exiting the declarations production.
 	ExitDeclarations(c *DeclarationsContext)
+
+	// ExitVar_type is called when exiting the var_type production.
+	ExitVar_type(c *Var_typeContext)
 
 	// ExitSubgroups_definitions is called when exiting the subgroups_definitions production.
 	ExitSubgroups_definitions(c *Subgroups_definitionsContext)

@@ -39,45 +39,47 @@ func graphgenParserInit() {
 	staticData.SymbolicNames = []string{
 		"", "COMMENT", "PERSON", "GROUP", "RELATIONSHIP", "SUBGROUP_OF", "DRAW",
 		"OPENPAR", "CLOSEPAR", "VIRGULA", "IDENT", "WS", "ERROR_OPEN_COMMENT",
-		"ERROR", "TYPE", "RELATION",
+		"ERROR",
 	}
 	staticData.RuleNames = []string{
-		"program", "declarations", "subgroups_definitions", "relationship_definitions",
+		"program", "declarations", "var_type", "subgroups_definitions", "relationship_definitions",
 		"draw_command",
 	}
 	staticData.PredictionContextCache = antlr.NewPredictionContextCache()
 	staticData.serializedATN = []int32{
-		4, 1, 15, 78, 2, 0, 7, 0, 2, 1, 7, 1, 2, 2, 7, 2, 2, 3, 7, 3, 2, 4, 7,
-		4, 1, 0, 5, 0, 12, 8, 0, 10, 0, 12, 0, 15, 9, 0, 1, 0, 5, 0, 18, 8, 0,
-		10, 0, 12, 0, 21, 9, 0, 1, 0, 5, 0, 24, 8, 0, 10, 0, 12, 0, 27, 9, 0, 1,
-		0, 5, 0, 30, 8, 0, 10, 0, 12, 0, 33, 9, 0, 1, 1, 1, 1, 1, 1, 1, 1, 5, 1,
-		39, 8, 1, 10, 1, 12, 1, 42, 9, 1, 1, 2, 1, 2, 1, 2, 5, 2, 47, 8, 2, 10,
-		2, 12, 2, 50, 9, 2, 1, 2, 1, 2, 1, 2, 1, 3, 1, 3, 1, 3, 5, 3, 58, 8, 3,
-		10, 3, 12, 3, 61, 9, 3, 1, 3, 1, 3, 1, 3, 1, 4, 1, 4, 1, 4, 1, 4, 1, 4,
-		5, 4, 71, 8, 4, 10, 4, 12, 4, 74, 9, 4, 1, 4, 1, 4, 1, 4, 0, 0, 5, 0, 2,
-		4, 6, 8, 0, 0, 80, 0, 13, 1, 0, 0, 0, 2, 34, 1, 0, 0, 0, 4, 43, 1, 0, 0,
-		0, 6, 54, 1, 0, 0, 0, 8, 65, 1, 0, 0, 0, 10, 12, 3, 2, 1, 0, 11, 10, 1,
-		0, 0, 0, 12, 15, 1, 0, 0, 0, 13, 11, 1, 0, 0, 0, 13, 14, 1, 0, 0, 0, 14,
-		19, 1, 0, 0, 0, 15, 13, 1, 0, 0, 0, 16, 18, 3, 4, 2, 0, 17, 16, 1, 0, 0,
-		0, 18, 21, 1, 0, 0, 0, 19, 17, 1, 0, 0, 0, 19, 20, 1, 0, 0, 0, 20, 25,
-		1, 0, 0, 0, 21, 19, 1, 0, 0, 0, 22, 24, 3, 6, 3, 0, 23, 22, 1, 0, 0, 0,
-		24, 27, 1, 0, 0, 0, 25, 23, 1, 0, 0, 0, 25, 26, 1, 0, 0, 0, 26, 31, 1,
-		0, 0, 0, 27, 25, 1, 0, 0, 0, 28, 30, 3, 8, 4, 0, 29, 28, 1, 0, 0, 0, 30,
-		33, 1, 0, 0, 0, 31, 29, 1, 0, 0, 0, 31, 32, 1, 0, 0, 0, 32, 1, 1, 0, 0,
-		0, 33, 31, 1, 0, 0, 0, 34, 35, 5, 14, 0, 0, 35, 40, 5, 10, 0, 0, 36, 37,
-		5, 9, 0, 0, 37, 39, 5, 10, 0, 0, 38, 36, 1, 0, 0, 0, 39, 42, 1, 0, 0, 0,
-		40, 38, 1, 0, 0, 0, 40, 41, 1, 0, 0, 0, 41, 3, 1, 0, 0, 0, 42, 40, 1, 0,
-		0, 0, 43, 48, 5, 10, 0, 0, 44, 45, 5, 9, 0, 0, 45, 47, 5, 10, 0, 0, 46,
-		44, 1, 0, 0, 0, 47, 50, 1, 0, 0, 0, 48, 46, 1, 0, 0, 0, 48, 49, 1, 0, 0,
-		0, 49, 51, 1, 0, 0, 0, 50, 48, 1, 0, 0, 0, 51, 52, 5, 5, 0, 0, 52, 53,
-		5, 10, 0, 0, 53, 5, 1, 0, 0, 0, 54, 59, 5, 10, 0, 0, 55, 56, 5, 9, 0, 0,
-		56, 58, 5, 10, 0, 0, 57, 55, 1, 0, 0, 0, 58, 61, 1, 0, 0, 0, 59, 57, 1,
-		0, 0, 0, 59, 60, 1, 0, 0, 0, 60, 62, 1, 0, 0, 0, 61, 59, 1, 0, 0, 0, 62,
-		63, 5, 15, 0, 0, 63, 64, 5, 10, 0, 0, 64, 7, 1, 0, 0, 0, 65, 66, 5, 6,
-		0, 0, 66, 67, 5, 7, 0, 0, 67, 72, 5, 10, 0, 0, 68, 69, 5, 9, 0, 0, 69,
-		71, 5, 15, 0, 0, 70, 68, 1, 0, 0, 0, 71, 74, 1, 0, 0, 0, 72, 70, 1, 0,
-		0, 0, 72, 73, 1, 0, 0, 0, 73, 75, 1, 0, 0, 0, 74, 72, 1, 0, 0, 0, 75, 76,
-		5, 8, 0, 0, 76, 9, 1, 0, 0, 0, 8, 13, 19, 25, 31, 40, 48, 59, 72,
+		4, 1, 13, 82, 2, 0, 7, 0, 2, 1, 7, 1, 2, 2, 7, 2, 2, 3, 7, 3, 2, 4, 7,
+		4, 2, 5, 7, 5, 1, 0, 5, 0, 14, 8, 0, 10, 0, 12, 0, 17, 9, 0, 1, 0, 5, 0,
+		20, 8, 0, 10, 0, 12, 0, 23, 9, 0, 1, 0, 5, 0, 26, 8, 0, 10, 0, 12, 0, 29,
+		9, 0, 1, 0, 5, 0, 32, 8, 0, 10, 0, 12, 0, 35, 9, 0, 1, 1, 1, 1, 1, 1, 1,
+		1, 5, 1, 41, 8, 1, 10, 1, 12, 1, 44, 9, 1, 1, 2, 1, 2, 1, 3, 1, 3, 1, 3,
+		5, 3, 51, 8, 3, 10, 3, 12, 3, 54, 9, 3, 1, 3, 1, 3, 1, 3, 1, 4, 1, 4, 1,
+		4, 5, 4, 62, 8, 4, 10, 4, 12, 4, 65, 9, 4, 1, 4, 1, 4, 1, 4, 1, 5, 1, 5,
+		1, 5, 1, 5, 1, 5, 5, 5, 75, 8, 5, 10, 5, 12, 5, 78, 9, 5, 1, 5, 1, 5, 1,
+		5, 0, 0, 6, 0, 2, 4, 6, 8, 10, 0, 1, 1, 0, 2, 4, 83, 0, 15, 1, 0, 0, 0,
+		2, 36, 1, 0, 0, 0, 4, 45, 1, 0, 0, 0, 6, 47, 1, 0, 0, 0, 8, 58, 1, 0, 0,
+		0, 10, 69, 1, 0, 0, 0, 12, 14, 3, 2, 1, 0, 13, 12, 1, 0, 0, 0, 14, 17,
+		1, 0, 0, 0, 15, 13, 1, 0, 0, 0, 15, 16, 1, 0, 0, 0, 16, 21, 1, 0, 0, 0,
+		17, 15, 1, 0, 0, 0, 18, 20, 3, 6, 3, 0, 19, 18, 1, 0, 0, 0, 20, 23, 1,
+		0, 0, 0, 21, 19, 1, 0, 0, 0, 21, 22, 1, 0, 0, 0, 22, 27, 1, 0, 0, 0, 23,
+		21, 1, 0, 0, 0, 24, 26, 3, 8, 4, 0, 25, 24, 1, 0, 0, 0, 26, 29, 1, 0, 0,
+		0, 27, 25, 1, 0, 0, 0, 27, 28, 1, 0, 0, 0, 28, 33, 1, 0, 0, 0, 29, 27,
+		1, 0, 0, 0, 30, 32, 3, 10, 5, 0, 31, 30, 1, 0, 0, 0, 32, 35, 1, 0, 0, 0,
+		33, 31, 1, 0, 0, 0, 33, 34, 1, 0, 0, 0, 34, 1, 1, 0, 0, 0, 35, 33, 1, 0,
+		0, 0, 36, 37, 3, 4, 2, 0, 37, 42, 5, 10, 0, 0, 38, 39, 5, 9, 0, 0, 39,
+		41, 5, 10, 0, 0, 40, 38, 1, 0, 0, 0, 41, 44, 1, 0, 0, 0, 42, 40, 1, 0,
+		0, 0, 42, 43, 1, 0, 0, 0, 43, 3, 1, 0, 0, 0, 44, 42, 1, 0, 0, 0, 45, 46,
+		7, 0, 0, 0, 46, 5, 1, 0, 0, 0, 47, 52, 5, 10, 0, 0, 48, 49, 5, 9, 0, 0,
+		49, 51, 5, 10, 0, 0, 50, 48, 1, 0, 0, 0, 51, 54, 1, 0, 0, 0, 52, 50, 1,
+		0, 0, 0, 52, 53, 1, 0, 0, 0, 53, 55, 1, 0, 0, 0, 54, 52, 1, 0, 0, 0, 55,
+		56, 5, 5, 0, 0, 56, 57, 5, 10, 0, 0, 57, 7, 1, 0, 0, 0, 58, 63, 5, 10,
+		0, 0, 59, 60, 5, 9, 0, 0, 60, 62, 5, 10, 0, 0, 61, 59, 1, 0, 0, 0, 62,
+		65, 1, 0, 0, 0, 63, 61, 1, 0, 0, 0, 63, 64, 1, 0, 0, 0, 64, 66, 1, 0, 0,
+		0, 65, 63, 1, 0, 0, 0, 66, 67, 5, 10, 0, 0, 67, 68, 5, 10, 0, 0, 68, 9,
+		1, 0, 0, 0, 69, 70, 5, 6, 0, 0, 70, 71, 5, 7, 0, 0, 71, 76, 5, 10, 0, 0,
+		72, 73, 5, 9, 0, 0, 73, 75, 5, 10, 0, 0, 74, 72, 1, 0, 0, 0, 75, 78, 1,
+		0, 0, 0, 76, 74, 1, 0, 0, 0, 76, 77, 1, 0, 0, 0, 77, 79, 1, 0, 0, 0, 78,
+		76, 1, 0, 0, 0, 79, 80, 5, 8, 0, 0, 80, 11, 1, 0, 0, 0, 8, 15, 21, 27,
+		33, 42, 52, 63, 76,
 	}
 	deserializer := antlr.NewATNDeserializer(nil)
 	staticData.atn = deserializer.Deserialize(staticData.serializedATN)
@@ -129,17 +131,16 @@ const (
 	GraphGenParserWS                 = 11
 	GraphGenParserERROR_OPEN_COMMENT = 12
 	GraphGenParserERROR              = 13
-	GraphGenParserTYPE               = 14
-	GraphGenParserRELATION           = 15
 )
 
 // GraphGenParser rules.
 const (
 	GraphGenParserRULE_program                  = 0
 	GraphGenParserRULE_declarations             = 1
-	GraphGenParserRULE_subgroups_definitions    = 2
-	GraphGenParserRULE_relationship_definitions = 3
-	GraphGenParserRULE_draw_command             = 4
+	GraphGenParserRULE_var_type                 = 2
+	GraphGenParserRULE_subgroups_definitions    = 3
+	GraphGenParserRULE_relationship_definitions = 4
+	GraphGenParserRULE_draw_command             = 5
 )
 
 // IProgramContext is an interface to support dynamic dispatch.
@@ -379,16 +380,6 @@ func (s *ProgramContext) ExitRule(listener antlr.ParseTreeListener) {
 	}
 }
 
-func (s *ProgramContext) Accept(visitor antlr.ParseTreeVisitor) interface{} {
-	switch t := visitor.(type) {
-	case GraphGenVisitor:
-		return t.VisitProgram(s)
-
-	default:
-		return t.VisitChildren(s)
-	}
-}
-
 func (p *GraphGenParser) Program() (localctx IProgramContext) {
 	localctx = NewProgramContext(p, p.GetParserRuleContext(), p.GetState())
 	p.EnterRule(localctx, 0, GraphGenParserRULE_program)
@@ -397,27 +388,27 @@ func (p *GraphGenParser) Program() (localctx IProgramContext) {
 	var _alt int
 
 	p.EnterOuterAlt(localctx, 1)
-	p.SetState(13)
+	p.SetState(15)
 	p.GetErrorHandler().Sync(p)
 	if p.HasError() {
 		goto errorExit
 	}
 	_la = p.GetTokenStream().LA(1)
 
-	for _la == GraphGenParserTYPE {
+	for (int64(_la) & ^0x3f) == 0 && ((int64(1)<<_la)&28) != 0 {
 		{
-			p.SetState(10)
+			p.SetState(12)
 			p.Declarations()
 		}
 
-		p.SetState(15)
+		p.SetState(17)
 		p.GetErrorHandler().Sync(p)
 		if p.HasError() {
 			goto errorExit
 		}
 		_la = p.GetTokenStream().LA(1)
 	}
-	p.SetState(19)
+	p.SetState(21)
 	p.GetErrorHandler().Sync(p)
 	if p.HasError() {
 		goto errorExit
@@ -429,12 +420,12 @@ func (p *GraphGenParser) Program() (localctx IProgramContext) {
 	for _alt != 2 && _alt != antlr.ATNInvalidAltNumber {
 		if _alt == 1 {
 			{
-				p.SetState(16)
+				p.SetState(18)
 				p.Subgroups_definitions()
 			}
 
 		}
-		p.SetState(21)
+		p.SetState(23)
 		p.GetErrorHandler().Sync(p)
 		if p.HasError() {
 			goto errorExit
@@ -444,7 +435,7 @@ func (p *GraphGenParser) Program() (localctx IProgramContext) {
 			goto errorExit
 		}
 	}
-	p.SetState(25)
+	p.SetState(27)
 	p.GetErrorHandler().Sync(p)
 	if p.HasError() {
 		goto errorExit
@@ -453,18 +444,18 @@ func (p *GraphGenParser) Program() (localctx IProgramContext) {
 
 	for _la == GraphGenParserIDENT {
 		{
-			p.SetState(22)
+			p.SetState(24)
 			p.Relationship_definitions()
 		}
 
-		p.SetState(27)
+		p.SetState(29)
 		p.GetErrorHandler().Sync(p)
 		if p.HasError() {
 			goto errorExit
 		}
 		_la = p.GetTokenStream().LA(1)
 	}
-	p.SetState(31)
+	p.SetState(33)
 	p.GetErrorHandler().Sync(p)
 	if p.HasError() {
 		goto errorExit
@@ -473,11 +464,11 @@ func (p *GraphGenParser) Program() (localctx IProgramContext) {
 
 	for _la == GraphGenParserDRAW {
 		{
-			p.SetState(28)
+			p.SetState(30)
 			p.Draw_command()
 		}
 
-		p.SetState(33)
+		p.SetState(35)
 		p.GetErrorHandler().Sync(p)
 		if p.HasError() {
 			goto errorExit
@@ -506,7 +497,7 @@ type IDeclarationsContext interface {
 	GetParser() antlr.Parser
 
 	// Getter signatures
-	TYPE() antlr.TerminalNode
+	Var_type() IVar_typeContext
 	AllIDENT() []antlr.TerminalNode
 	IDENT(i int) antlr.TerminalNode
 	AllVIRGULA() []antlr.TerminalNode
@@ -548,8 +539,20 @@ func NewDeclarationsContext(parser antlr.Parser, parent antlr.ParserRuleContext,
 
 func (s *DeclarationsContext) GetParser() antlr.Parser { return s.parser }
 
-func (s *DeclarationsContext) TYPE() antlr.TerminalNode {
-	return s.GetToken(GraphGenParserTYPE, 0)
+func (s *DeclarationsContext) Var_type() IVar_typeContext {
+	var t antlr.RuleContext
+	for _, ctx := range s.GetChildren() {
+		if _, ok := ctx.(IVar_typeContext); ok {
+			t = ctx.(antlr.RuleContext)
+			break
+		}
+	}
+
+	if t == nil {
+		return nil
+	}
+
+	return t.(IVar_typeContext)
 }
 
 func (s *DeclarationsContext) AllIDENT() []antlr.TerminalNode {
@@ -588,16 +591,6 @@ func (s *DeclarationsContext) ExitRule(listener antlr.ParseTreeListener) {
 	}
 }
 
-func (s *DeclarationsContext) Accept(visitor antlr.ParseTreeVisitor) interface{} {
-	switch t := visitor.(type) {
-	case GraphGenVisitor:
-		return t.VisitDeclarations(s)
-
-	default:
-		return t.VisitChildren(s)
-	}
-}
-
 func (p *GraphGenParser) Declarations() (localctx IDeclarationsContext) {
 	localctx = NewDeclarationsContext(p, p.GetParserRuleContext(), p.GetState())
 	p.EnterRule(localctx, 2, GraphGenParserRULE_declarations)
@@ -605,22 +598,18 @@ func (p *GraphGenParser) Declarations() (localctx IDeclarationsContext) {
 
 	p.EnterOuterAlt(localctx, 1)
 	{
-		p.SetState(34)
-		p.Match(GraphGenParserTYPE)
-		if p.HasError() {
-			// Recognition error - abort rule
-			goto errorExit
-		}
+		p.SetState(36)
+		p.Var_type()
 	}
 	{
-		p.SetState(35)
+		p.SetState(37)
 		p.Match(GraphGenParserIDENT)
 		if p.HasError() {
 			// Recognition error - abort rule
 			goto errorExit
 		}
 	}
-	p.SetState(40)
+	p.SetState(42)
 	p.GetErrorHandler().Sync(p)
 	if p.HasError() {
 		goto errorExit
@@ -629,7 +618,7 @@ func (p *GraphGenParser) Declarations() (localctx IDeclarationsContext) {
 
 	for _la == GraphGenParserVIRGULA {
 		{
-			p.SetState(36)
+			p.SetState(38)
 			p.Match(GraphGenParserVIRGULA)
 			if p.HasError() {
 				// Recognition error - abort rule
@@ -637,7 +626,7 @@ func (p *GraphGenParser) Declarations() (localctx IDeclarationsContext) {
 			}
 		}
 		{
-			p.SetState(37)
+			p.SetState(39)
 			p.Match(GraphGenParserIDENT)
 			if p.HasError() {
 				// Recognition error - abort rule
@@ -645,12 +634,123 @@ func (p *GraphGenParser) Declarations() (localctx IDeclarationsContext) {
 			}
 		}
 
-		p.SetState(42)
+		p.SetState(44)
 		p.GetErrorHandler().Sync(p)
 		if p.HasError() {
 			goto errorExit
 		}
 		_la = p.GetTokenStream().LA(1)
+	}
+
+errorExit:
+	if p.HasError() {
+		v := p.GetError()
+		localctx.SetException(v)
+		p.GetErrorHandler().ReportError(p, v)
+		p.GetErrorHandler().Recover(p, v)
+		p.SetError(nil)
+	}
+	p.ExitRule()
+	return localctx
+	goto errorExit // Trick to prevent compiler error if the label is not used
+}
+
+// IVar_typeContext is an interface to support dynamic dispatch.
+type IVar_typeContext interface {
+	antlr.ParserRuleContext
+
+	// GetParser returns the parser.
+	GetParser() antlr.Parser
+
+	// Getter signatures
+	PERSON() antlr.TerminalNode
+	GROUP() antlr.TerminalNode
+	RELATIONSHIP() antlr.TerminalNode
+
+	// IsVar_typeContext differentiates from other interfaces.
+	IsVar_typeContext()
+}
+
+type Var_typeContext struct {
+	antlr.BaseParserRuleContext
+	parser antlr.Parser
+}
+
+func NewEmptyVar_typeContext() *Var_typeContext {
+	var p = new(Var_typeContext)
+	antlr.InitBaseParserRuleContext(&p.BaseParserRuleContext, nil, -1)
+	p.RuleIndex = GraphGenParserRULE_var_type
+	return p
+}
+
+func InitEmptyVar_typeContext(p *Var_typeContext) {
+	antlr.InitBaseParserRuleContext(&p.BaseParserRuleContext, nil, -1)
+	p.RuleIndex = GraphGenParserRULE_var_type
+}
+
+func (*Var_typeContext) IsVar_typeContext() {}
+
+func NewVar_typeContext(parser antlr.Parser, parent antlr.ParserRuleContext, invokingState int) *Var_typeContext {
+	var p = new(Var_typeContext)
+
+	antlr.InitBaseParserRuleContext(&p.BaseParserRuleContext, parent, invokingState)
+
+	p.parser = parser
+	p.RuleIndex = GraphGenParserRULE_var_type
+
+	return p
+}
+
+func (s *Var_typeContext) GetParser() antlr.Parser { return s.parser }
+
+func (s *Var_typeContext) PERSON() antlr.TerminalNode {
+	return s.GetToken(GraphGenParserPERSON, 0)
+}
+
+func (s *Var_typeContext) GROUP() antlr.TerminalNode {
+	return s.GetToken(GraphGenParserGROUP, 0)
+}
+
+func (s *Var_typeContext) RELATIONSHIP() antlr.TerminalNode {
+	return s.GetToken(GraphGenParserRELATIONSHIP, 0)
+}
+
+func (s *Var_typeContext) GetRuleContext() antlr.RuleContext {
+	return s
+}
+
+func (s *Var_typeContext) ToStringTree(ruleNames []string, recog antlr.Recognizer) string {
+	return antlr.TreesStringTree(s, ruleNames, recog)
+}
+
+func (s *Var_typeContext) EnterRule(listener antlr.ParseTreeListener) {
+	if listenerT, ok := listener.(GraphGenListener); ok {
+		listenerT.EnterVar_type(s)
+	}
+}
+
+func (s *Var_typeContext) ExitRule(listener antlr.ParseTreeListener) {
+	if listenerT, ok := listener.(GraphGenListener); ok {
+		listenerT.ExitVar_type(s)
+	}
+}
+
+func (p *GraphGenParser) Var_type() (localctx IVar_typeContext) {
+	localctx = NewVar_typeContext(p, p.GetParserRuleContext(), p.GetState())
+	p.EnterRule(localctx, 4, GraphGenParserRULE_var_type)
+	var _la int
+
+	p.EnterOuterAlt(localctx, 1)
+	{
+		p.SetState(45)
+		_la = p.GetTokenStream().LA(1)
+
+		if !((int64(_la) & ^0x3f) == 0 && ((int64(1)<<_la)&28) != 0) {
+			p.GetErrorHandler().RecoverInline(p)
+		} else {
+			p.GetErrorHandler().ReportMatch(p)
+			p.Consume()
+		}
 	}
 
 errorExit:
@@ -756,31 +856,21 @@ func (s *Subgroups_definitionsContext) ExitRule(listener antlr.ParseTreeListener
 	}
 }
 
-func (s *Subgroups_definitionsContext) Accept(visitor antlr.ParseTreeVisitor) interface{} {
-	switch t := visitor.(type) {
-	case GraphGenVisitor:
-		return t.VisitSubgroups_definitions(s)
-
-	default:
-		return t.VisitChildren(s)
-	}
-}
-
 func (p *GraphGenParser) Subgroups_definitions() (localctx ISubgroups_definitionsContext) {
 	localctx = NewSubgroups_definitionsContext(p, p.GetParserRuleContext(), p.GetState())
-	p.EnterRule(localctx, 4, GraphGenParserRULE_subgroups_definitions)
+	p.EnterRule(localctx, 6, GraphGenParserRULE_subgroups_definitions)
 	var _la int
 
 	p.EnterOuterAlt(localctx, 1)
 	{
-		p.SetState(43)
+		p.SetState(47)
 		p.Match(GraphGenParserIDENT)
 		if p.HasError() {
 			// Recognition error - abort rule
 			goto errorExit
 		}
 	}
-	p.SetState(48)
+	p.SetState(52)
 	p.GetErrorHandler().Sync(p)
 	if p.HasError() {
 		goto errorExit
@@ -789,7 +879,7 @@ func (p *GraphGenParser) Subgroups_definitions() (localctx ISubgroups_definition
 
 	for _la == GraphGenParserVIRGULA {
 		{
-			p.SetState(44)
+			p.SetState(48)
 			p.Match(GraphGenParserVIRGULA)
 			if p.HasError() {
 				// Recognition error - abort rule
@@ -797,7 +887,7 @@ func (p *GraphGenParser) Subgroups_definitions() (localctx ISubgroups_definition
 			}
 		}
 		{
-			p.SetState(45)
+			p.SetState(49)
 			p.Match(GraphGenParserIDENT)
 			if p.HasError() {
 				// Recognition error - abort rule
@@ -805,7 +895,7 @@ func (p *GraphGenParser) Subgroups_definitions() (localctx ISubgroups_definition
 			}
 		}
 
-		p.SetState(50)
+		p.SetState(54)
 		p.GetErrorHandler().Sync(p)
 		if p.HasError() {
 			goto errorExit
@@ -813,7 +903,7 @@ func (p *GraphGenParser) Subgroups_definitions() (localctx ISubgroups_definition
 		_la = p.GetTokenStream().LA(1)
 	}
 	{
-		p.SetState(51)
+		p.SetState(55)
 		p.Match(GraphGenParserSUBGROUP_OF)
 		if p.HasError() {
 			// Recognition error - abort rule
@@ -821,7 +911,7 @@ func (p *GraphGenParser) Subgroups_definitions() (localctx ISubgroups_definition
 		}
 	}
 	{
-		p.SetState(52)
+		p.SetState(56)
 		p.Match(GraphGenParserIDENT)
 		if p.HasError() {
 			// Recognition error - abort rule
@@ -849,10 +939,15 @@ type IRelationship_definitionsContext interface {
 	// GetParser returns the parser.
 	GetParser() antlr.Parser
 
+	// GetRelation returns the relation token.
+	GetRelation() antlr.Token
+
+	// SetRelation sets the relation token.
+	SetRelation(antlr.Token)
+
 	// Getter signatures
 	AllIDENT() []antlr.TerminalNode
 	IDENT(i int) antlr.TerminalNode
-	RELATION() antlr.TerminalNode
 	AllVIRGULA() []antlr.TerminalNode
 	VIRGULA(i int) antlr.TerminalNode
 
@@ -862,7 +957,8 @@ type IRelationship_definitionsContext interface {
 
 type Relationship_definitionsContext struct {
 	antlr.BaseParserRuleContext
-	parser antlr.Parser
+	parser   antlr.Parser
+	relation antlr.Token
 }
 
 func NewEmptyRelationship_definitionsContext() *Relationship_definitionsContext {
@@ -892,16 +988,16 @@ func NewRelationship_definitionsContext(parser antlr.Parser, parent antlr.Parser
 
 func (s *Relationship_definitionsContext) GetParser() antlr.Parser { return s.parser }
 
+func (s *Relationship_definitionsContext) GetRelation() antlr.Token { return s.relation }
+
+func (s *Relationship_definitionsContext) SetRelation(v antlr.Token) { s.relation = v }
+
 func (s *Relationship_definitionsContext) AllIDENT() []antlr.TerminalNode {
 	return s.GetTokens(GraphGenParserIDENT)
 }
 
 func (s *Relationship_definitionsContext) IDENT(i int) antlr.TerminalNode {
 	return s.GetToken(GraphGenParserIDENT, i)
-}
-
-func (s *Relationship_definitionsContext) RELATION() antlr.TerminalNode {
-	return s.GetToken(GraphGenParserRELATION, 0)
 }
 
 func (s *Relationship_definitionsContext) AllVIRGULA() []antlr.TerminalNode {
@@ -932,31 +1028,21 @@ func (s *Relationship_definitionsContext) ExitRule(listener antlr.ParseTreeListe
 	}
 }
 
-func (s *Relationship_definitionsContext) Accept(visitor antlr.ParseTreeVisitor) interface{} {
-	switch t := visitor.(type) {
-	case GraphGenVisitor:
-		return t.VisitRelationship_definitions(s)
-
-	default:
-		return t.VisitChildren(s)
-	}
-}
-
 func (p *GraphGenParser) Relationship_definitions() (localctx IRelationship_definitionsContext) {
 	localctx = NewRelationship_definitionsContext(p, p.GetParserRuleContext(), p.GetState())
-	p.EnterRule(localctx, 6, GraphGenParserRULE_relationship_definitions)
+	p.EnterRule(localctx, 8, GraphGenParserRULE_relationship_definitions)
 	var _la int
 
 	p.EnterOuterAlt(localctx, 1)
 	{
-		p.SetState(54)
+		p.SetState(58)
 		p.Match(GraphGenParserIDENT)
 		if p.HasError() {
 			// Recognition error - abort rule
 			goto errorExit
 		}
 	}
-	p.SetState(59)
+	p.SetState(63)
 	p.GetErrorHandler().Sync(p)
 	if p.HasError() {
 		goto errorExit
@@ -965,7 +1051,7 @@ func (p *GraphGenParser) Relationship_definitions() (localctx IRelationship_defi
 
 	for _la == GraphGenParserVIRGULA {
 		{
-			p.SetState(55)
+			p.SetState(59)
 			p.Match(GraphGenParserVIRGULA)
 			if p.HasError() {
 				// Recognition error - abort rule
@@ -973,7 +1059,7 @@ func (p *GraphGenParser) Relationship_definitions() (localctx IRelationship_defi
 			}
 		}
 		{
-			p.SetState(56)
+			p.SetState(60)
 			p.Match(GraphGenParserIDENT)
 			if p.HasError() {
 				// Recognition error - abort rule
@@ -981,7 +1067,7 @@ func (p *GraphGenParser) Relationship_definitions() (localctx IRelationship_defi
 			}
 		}
 
-		p.SetState(61)
+		p.SetState(65)
 		p.GetErrorHandler().Sync(p)
 		if p.HasError() {
 			goto errorExit
@@ -989,15 +1075,18 @@ func (p *GraphGenParser) Relationship_definitions() (localctx IRelationship_defi
 		_la = p.GetTokenStream().LA(1)
 	}
 	{
-		p.SetState(62)
-		p.Match(GraphGenParserRELATION)
+		p.SetState(66)
+
+		var _m = p.Match(GraphGenParserIDENT)
+
+		localctx.(*Relationship_definitionsContext).relation = _m
 		if p.HasError() {
 			// Recognition error - abort rule
 			goto errorExit
 		}
 	}
 	{
-		p.SetState(63)
+		p.SetState(67)
 		p.Match(GraphGenParserIDENT)
 		if p.HasError() {
 			// Recognition error - abort rule
@@ -1025,15 +1114,20 @@ type IDraw_commandContext interface {
 	// GetParser returns the parser.
 	GetParser() antlr.Parser
 
+	// GetRelation returns the relation token.
+	GetRelation() antlr.Token
+
+	// SetRelation sets the relation token.
+	SetRelation(antlr.Token)
+
 	// Getter signatures
 	DRAW() antlr.TerminalNode
 	OPENPAR() antlr.TerminalNode
-	IDENT() antlr.TerminalNode
+	AllIDENT() []antlr.TerminalNode
+	IDENT(i int) antlr.TerminalNode
 	CLOSEPAR() antlr.TerminalNode
 	AllVIRGULA() []antlr.TerminalNode
 	VIRGULA(i int) antlr.TerminalNode
-	AllRELATION() []antlr.TerminalNode
-	RELATION(i int) antlr.TerminalNode
 
 	// IsDraw_commandContext differentiates from other interfaces.
 	IsDraw_commandContext()
@@ -1041,7 +1135,8 @@ type IDraw_commandContext interface {
 
 type Draw_commandContext struct {
 	antlr.BaseParserRuleContext
-	parser antlr.Parser
+	parser   antlr.Parser
+	relation antlr.Token
 }
 
 func NewEmptyDraw_commandContext() *Draw_commandContext {
@@ -1071,6 +1166,10 @@ func NewDraw_commandContext(parser antlr.Parser, parent antlr.ParserRuleContext,
 
 func (s *Draw_commandContext) GetParser() antlr.Parser { return s.parser }
 
+func (s *Draw_commandContext) GetRelation() antlr.Token { return s.relation }
+
+func (s *Draw_commandContext) SetRelation(v antlr.Token) { s.relation = v }
+
 func (s *Draw_commandContext) DRAW() antlr.TerminalNode {
 	return s.GetToken(GraphGenParserDRAW, 0)
 }
@@ -1079,8 +1178,12 @@ func (s *Draw_commandContext) OPENPAR() antlr.TerminalNode {
 	return s.GetToken(GraphGenParserOPENPAR, 0)
 }
 
-func (s *Draw_commandContext) IDENT() antlr.TerminalNode {
-	return s.GetToken(GraphGenParserIDENT, 0)
+func (s *Draw_commandContext) AllIDENT() []antlr.TerminalNode {
+	return s.GetTokens(GraphGenParserIDENT)
+}
+
+func (s *Draw_commandContext) IDENT(i int) antlr.TerminalNode {
+	return s.GetToken(GraphGenParserIDENT, i)
 }
 
 func (s *Draw_commandContext) CLOSEPAR() antlr.TerminalNode {
@@ -1093,14 +1196,6 @@ func (s *Draw_commandContext) AllVIRGULA() []antlr.TerminalNode {
 
 func (s *Draw_commandContext) VIRGULA(i int) antlr.TerminalNode {
 	return s.GetToken(GraphGenParserVIRGULA, i)
-}
-
-func (s *Draw_commandContext) AllRELATION() []antlr.TerminalNode {
-	return s.GetTokens(GraphGenParserRELATION)
-}
-
-func (s *Draw_commandContext) RELATION(i int) antlr.TerminalNode {
-	return s.GetToken(GraphGenParserRELATION, i)
 }
 
 func (s *Draw_commandContext) GetRuleContext() antlr.RuleContext {
@@ -1123,24 +1218,14 @@ func (s *Draw_commandContext) ExitRule(listener antlr.ParseTreeListener) {
 	}
 }
 
-func (s *Draw_commandContext) Accept(visitor antlr.ParseTreeVisitor) interface{} {
-	switch t := visitor.(type) {
-	case GraphGenVisitor:
-		return t.VisitDraw_command(s)
-
-	default:
-		return t.VisitChildren(s)
-	}
-}
-
 func (p *GraphGenParser) Draw_command() (localctx IDraw_commandContext) {
 	localctx = NewDraw_commandContext(p, p.GetParserRuleContext(), p.GetState())
-	p.EnterRule(localctx, 8, GraphGenParserRULE_draw_command)
+	p.EnterRule(localctx, 10, GraphGenParserRULE_draw_command)
 	var _la int
 
 	p.EnterOuterAlt(localctx, 1)
 	{
-		p.SetState(65)
+		p.SetState(69)
 		p.Match(GraphGenParserDRAW)
 		if p.HasError() {
 			// Recognition error - abort rule
@@ -1148,7 +1233,7 @@ func (p *GraphGenParser) Draw_command() (localctx IDraw_commandContext) {
 		}
 	}
 	{
-		p.SetState(66)
+		p.SetState(70)
 		p.Match(GraphGenParserOPENPAR)
 		if p.HasError() {
 			// Recognition error - abort rule
@@ -1156,14 +1241,14 @@ func (p *GraphGenParser) Draw_command() (localctx IDraw_commandContext) {
 		}
 	}
 	{
-		p.SetState(67)
+		p.SetState(71)
 		p.Match(GraphGenParserIDENT)
 		if p.HasError() {
 			// Recognition error - abort rule
 			goto errorExit
 		}
 	}
-	p.SetState(72)
+	p.SetState(76)
 	p.GetErrorHandler().Sync(p)
 	if p.HasError() {
 		goto errorExit
@@ -1172,7 +1257,7 @@ func (p *GraphGenParser) Draw_command() (localctx IDraw_commandContext) {
 
 	for _la == GraphGenParserVIRGULA {
 		{
-			p.SetState(68)
+			p.SetState(72)
 			p.Match(GraphGenParserVIRGULA)
 			if p.HasError() {
 				// Recognition error - abort rule
@@ -1180,15 +1265,18 @@ func (p *GraphGenParser) Draw_command() (localctx IDraw_commandContext) {
 			}
 		}
 		{
-			p.SetState(69)
-			p.Match(GraphGenParserRELATION)
+			p.SetState(73)
+
+			var _m = p.Match(GraphGenParserIDENT)
+
+			localctx.(*Draw_commandContext).relation = _m
 			if p.HasError() {
 				// Recognition error - abort rule
 				goto errorExit
 			}
 		}
 
-		p.SetState(74)
+		p.SetState(78)
 		p.GetErrorHandler().Sync(p)
 		if p.HasError() {
 			goto errorExit
@@ -1196,7 +1284,7 @@ func (p *GraphGenParser) Draw_command() (localctx IDraw_commandContext) {
 		_la = p.GetTokenStream().LA(1)
 	}
 	{
-		p.SetState(75)
+		p.SetState(79)
 		p.Match(GraphGenParserCLOSEPAR)
 		if p.HasError() {
 			// Recognition error - abort rule

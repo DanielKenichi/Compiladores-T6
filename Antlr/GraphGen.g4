@@ -41,20 +41,19 @@ ERROR: .;
 -----------------
 */
 
-TYPE: PERSON | GROUP | RELATIONSHIP;
-RELATION: IDENT;
-
 program
     : (declarations)* (subgroups_definitions)* (relationship_definitions)* (draw_command)*;
 
 declarations
-    : TYPE IDENT (VIRGULA IDENT)*;
+    : var_type IDENT (VIRGULA IDENT)*;
+
+var_type: PERSON | GROUP | RELATIONSHIP;
 
 subgroups_definitions
     : IDENT (VIRGULA IDENT)* SUBGROUP_OF IDENT;
 
 relationship_definitions
-    : IDENT (VIRGULA IDENT)* RELATION IDENT;
+    : IDENT (VIRGULA IDENT)* relation=IDENT IDENT;
 
 draw_command
-    : DRAW OPENPAR IDENT (VIRGULA RELATION)* CLOSEPAR;
+    : DRAW OPENPAR IDENT (VIRGULA relation=IDENT)* CLOSEPAR;

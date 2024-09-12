@@ -2,6 +2,7 @@ package visitor
 
 import (
 	"fmt"
+	"log"
 
 	parser "github.com/DanielKenichi/Compiladores-T6/Antlr"
 	"github.com/DanielKenichi/Compiladores-T6/GraphGen/scope"
@@ -20,12 +21,14 @@ func New() *GraphGenVisitor {
 }
 
 func SemanticError(token antlr.Token, message string) string {
-	return fmt.Sprintf("Linha %v: %s\n", token.GetLine(), message)
+	return fmt.Sprintf("Line %v: %s\n", token.GetLine(), message)
 }
 
 func (v *GraphGenVisitor) VisitProgram(ctx parser.IProgramContext) []string {
 	var programResult = make([]string, 0)
 	v.Scopes.NewScope()
+
+	log.Print("In the program")
 
 	result := v.VisitDeclarations(ctx.AllDeclarations())
 	programResult = append(programResult, result...)
@@ -46,11 +49,11 @@ func (v *GraphGenVisitor) VisitDeclarations(ctxs []parser.IDeclarationsContext) 
 	var declarationsResult = make([]string, 0)
 
 	for _, ctx := range ctxs {
-		if ctx.TYPE() != nil {
-			declarationsResult = append(declarationsResult, fmt.Sprintf("Declarando variáveis do tipo %s", ctx.TYPE().GetText()))
-		}
+
+		log.Print("Checking declarations")
 
 		result := v.AddVarsToSymbolTable(ctx)
+
 		declarationsResult = append(declarationsResult, result...)
 	}
 

@@ -33,6 +33,12 @@ func (s *BaseGraphGenListener) EnterDeclarations(ctx *DeclarationsContext) {}
 // ExitDeclarations is called when production declarations is exited.
 func (s *BaseGraphGenListener) ExitDeclarations(ctx *DeclarationsContext) {}
 
+// EnterVar_type is called when production var_type is entered.
+func (s *BaseGraphGenListener) EnterVar_type(ctx *Var_typeContext) {}
+
+// ExitVar_type is called when production var_type is exited.
+func (s *BaseGraphGenListener) ExitVar_type(ctx *Var_typeContext) {}
+
 // EnterSubgroups_definitions is called when production subgroups_definitions is entered.
 func (s *BaseGraphGenListener) EnterSubgroups_definitions(ctx *Subgroups_definitionsContext) {}
 

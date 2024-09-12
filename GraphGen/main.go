@@ -6,6 +6,7 @@ import (
 
 	graphgen "github.com/DanielKenichi/Compiladores-T6/Antlr"
 	"github.com/DanielKenichi/Compiladores-T6/GraphGen/errortokens"
+	"github.com/DanielKenichi/Compiladores-T6/GraphGen/visitor"
 	"github.com/DanielKenichi/Compiladores-T6/GraphGen/vocabulary"
 	"github.com/antlr4-go/antlr/v4"
 )
@@ -48,9 +49,7 @@ func main() {
 			}
 
 			break
-		} //else {
-		// 	_, err = output.WriteString(fmt.Sprintf("<'%s',%s>\n", t.GetText(), tokenName))
-		// }
+		}
 
 		if err != nil {
 			log.Fatalf("Failed writing to output file: %v", err)
@@ -66,7 +65,18 @@ func main() {
 	customErrorListener := NewCustomErrorListener(output)
 	parser.AddErrorListener(customErrorListener)
 
-	parser.Program()
+	tree := parser.Program()
 
-	output.WriteString("Fim da compilacao\n")
+	treeVisitor := visitor.New()
+
+	semanticErrors := treeVisitor.VisitProgram(tree)
+
+	log.Print(semanticErrors)
+
+	if len(semanticErrors) > 0 {
+		for _, semanticError := range semanticErrors {
+			output.WriteString(semanticError)
+		}
+		return
+	}
 }
