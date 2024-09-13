@@ -32,3 +32,4 @@ No diretório test_files há exemplos de input para o compilador. Para executar 
 ```bash
 ./graphgen <input_file> <output_file>
 ```
+[Demo do trabalho](https://youtu.be/im3inUHMzQU)
